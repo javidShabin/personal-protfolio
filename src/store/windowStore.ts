@@ -16,9 +16,9 @@ interface WindowStore {
 export const useWindowStore = create<WindowStore>((set, get) => ({
   windows: [],
 
+  // ADD THIS HERE (openWindow)
   openWindow: (window) =>
     set((state) => {
-      // prevent duplicate windows
       const exists = state.windows.find((w) => w.id === window.id);
       if (exists) return state;
 

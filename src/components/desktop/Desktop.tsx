@@ -2,6 +2,7 @@ import wallpaper from "/wallpaper/wallpaper.jpg";
 import DesktopIcon from "./DesktopIcon";
 import WindowManager from "../window/WindowManager";
 import { useWindowStore } from "../../store/windowStore";
+import Dock from "./Dock";
 
 export default function Desktop() {
   const openWindow = useWindowStore((state) => state.openWindow);
@@ -27,6 +28,7 @@ export default function Desktop() {
 
       {/* Windows Layer */}
       <WindowManager />
+      <Dock />
     </div>
   );
 }
