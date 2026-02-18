@@ -28,17 +28,15 @@ export default function Window({ id, title, zIndex, children }: Props) {
       dragHandleClassName="window-drag"
       onMouseDown={() => focusWindow(id)}
     >
-        <motion.div
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 0, scale: 0.9 }}
-  transition={{ duration: 0.2 }}
-  className="bg-zinc-900 text-white rounded-xl shadow-2xl h-full flex flex-col border border-zinc-700"
->
-      
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.2 }}
+        className="bg-zinc-900 text-white rounded-xl shadow-2xl h-full flex flex-col border border-zinc-700"
+      >
         {/* Header */}
-       <div className="window-drag flex items-center justify-between px-3 py-2 bg-zinc-800 rounded-t-xl cursor-grab active:cursor-grabbing">
-
+        <div className="window-drag flex items-center justify-between px-3 py-2 bg-zinc-800 rounded-t-xl cursor-grab active:cursor-grabbing">
           {/* Left Buttons */}
           <div className="flex items-center gap-2">
             <button
