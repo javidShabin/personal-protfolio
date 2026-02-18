@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useWindowStore } from "../../store/windowStore";
+import { useState } from "react";
 
 interface DockItemProps {
   title: string;
@@ -12,26 +13,40 @@ function DockItem({ title, icon, id }: DockItemProps) {
   const windows = useWindowStore((state) => state.windows);
 
   const isOpen = windows.some((w) => w.id === id);
+  const [isBouncing, setIsBouncing] = useState(false);
+
+  const handleClick = () => {
+    setIsBouncing(true);
+
+    setTimeout(() => {
+      setIsBouncing(false);
+      openWindow({ id, title });
+    }, 300);
+  };
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.4 }}
-      transition={{ type: "spring", stiffness: 300 }}
-      onClick={() =>
-        openWindow({
-          id,
-          title,
-        })
-      }
-      className="flex flex-col items-center cursor-pointer"
-    >
-      <img src={icon} className="w-10 h-10" />
+    <div className="flex flex-col items-center cursor-pointer">
+      <motion.img
+        src={icon}
+        className="w-10 h-10"
+        whileHover={{ scale: 1.3 }}
+        animate={
+          isBouncing
+            ? { y: [0, -18, 0, -10, 0] }
+            : { y: 0 }
+        }
+        transition={{ duration: 0.4 }}
+        onClick={handleClick}
+      />
 
       {/* Active Indicator */}
-      {isOpen && <div className="w-1.5 h-1.5 bg-white rounded-full mt-1"></div>}
-    </motion.div>
+      {isOpen && (
+        <div className="w-1.5 h-1.5 bg-white rounded-full mt-1"></div>
+      )}
+    </div>
   );
 }
+
 
 export default function Dock() {
   return (
