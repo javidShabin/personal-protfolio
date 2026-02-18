@@ -4,6 +4,8 @@ export interface AppWindow {
   id: string;
   title: string;
   zIndex: number;
+  isMinimized?: boolean;
+  isMaximized?: boolean; 
 }
 
 interface WindowStore {
@@ -11,21 +13,36 @@ interface WindowStore {
   openWindow: (window: Omit<AppWindow, "zIndex">) => void;
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
+  minimizeWindow: (id: string) => void;
+  toggleMaximize: (id: string) => void;
+  
 }
 
-export const useWindowStore = create<WindowStore>((set, get) => ({
+export const useWindowStore = create<WindowStore>((set) => ({
   windows: [],
 
-  // ADD THIS HERE (openWindow)
   openWindow: (window) =>
     set((state) => {
       const exists = state.windows.find((w) => w.id === window.id);
-      if (exists) return state;
+
+      // If already exists → restore if minimized
+      if (exists) {
+        return {
+          windows: state.windows.map((w) =>
+            w.id === window.id
+              ? { ...w, isMinimized: false }
+              : w
+          ),
+        };
+      }
 
       const topZ = state.windows.length + 1;
 
       return {
-        windows: [...state.windows, { ...window, zIndex: topZ }],
+        windows: [
+          ...state.windows,
+          { ...window, zIndex: topZ, isMinimized: false },
+        ],
       };
     }),
 
@@ -36,7 +53,8 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
 
   focusWindow: (id) =>
     set((state) => {
-      const topZ = Math.max(0, ...state.windows.map((w) => w.zIndex)) + 1;
+      const topZ =
+        Math.max(0, ...state.windows.map((w) => w.zIndex)) + 1;
 
       return {
         windows: state.windows.map((w) =>
@@ -44,4 +62,23 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
         ),
       };
     }),
+
+  minimizeWindow: (id) =>
+    set((state) => ({
+      windows: state.windows.map((w) =>
+        w.id === id ? { ...w, isMinimized: true } : w
+      ),
+    })),
+
+    toggleMaximize: (id) =>
+  set((state) => ({
+    windows: state.windows.map((w) =>
+      w.id === id
+        ? { ...w, isMaximized: !w.isMaximized }
+        : w
+    ),
+  })),
+
+
+    
 }));

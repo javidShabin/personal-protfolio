@@ -11,13 +11,25 @@ interface Props {
 }
 
 export default function Window({ id, title, zIndex, children }: Props) {
-  const closeWindow = useWindowStore((state) => state.closeWindow);
+  const windows = useWindowStore((state) => state.windows);
+  const currentWindow = windows.find((w) => w.id === id);
 
+  const closeWindow = useWindowStore((state) => state.closeWindow);
+  const minimizeWindow = useWindowStore((state) => state.minimizeWindow);
+  const toggleMaximize = useWindowStore((state) => state.toggleMaximize);
   const focusWindow = useWindowStore((state) => state.focusWindow);
 
   return (
     <Rnd
       style={{ zIndex }}
+      size={
+        currentWindow?.isMaximized
+          ? { width: "100%", height: "100%" }
+          : undefined
+      }
+      position={currentWindow?.isMaximized ? { x: 0, y: 0 } : undefined}
+      disableDragging={currentWindow?.isMaximized}
+      enableResizing={!currentWindow?.isMaximized}
       default={{
         x: 200,
         y: 120,
@@ -29,10 +41,10 @@ export default function Window({ id, title, zIndex, children }: Props) {
       onMouseDown={() => focusWindow(id)}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.2 }}
+        exit={{ opacity: 0, scale: 0.8, y: 40 }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
         className="bg-zinc-900 text-white rounded-xl shadow-2xl h-full flex flex-col border border-zinc-700"
       >
         {/* Header */}
@@ -46,13 +58,19 @@ export default function Window({ id, title, zIndex, children }: Props) {
               <X className="text-black" size={10} />
             </button>
 
-            <div className="w-3 h-3 bg-yellow-400 rounded-full flex items-center justify-center">
+            <button
+              onClick={() => minimizeWindow(id)}
+              className="w-3 h-3 bg-yellow-400 rounded-full flex items-center justify-center hover:brightness-110"
+            >
               <Minus className="text-black" size={10} />
-            </div>
+            </button>
 
-            <div className="w-3 h-3 bg-green-500 rounded-full flex items-center justify-center">
+            <button
+              onClick={() => toggleMaximize(id)}
+              className="w-3 h-3 bg-green-500 rounded-full flex items-center justify-center hover:brightness-110"
+            >
               <Square className="text-black" size={8} />
-            </div>
+            </button>
           </div>
           {/* Title */}
           <span className="text-sm text-zinc-300">{title}</span>

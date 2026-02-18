@@ -7,9 +7,10 @@ export default function WindowManager() {
   const windows = useWindowStore((state) => state.windows);
 
   return (
-    <>
-      <AnimatePresence>
-        {windows.map((win) => {
+    <AnimatePresence>
+      {windows
+        .filter((win) => !win.isMinimized) // 🔥 THIS LINE FIXES IT
+        .map((win) => {
           const AppComponent = appRegistry[win.id];
 
           return (
@@ -23,7 +24,6 @@ export default function WindowManager() {
             </Window>
           );
         })}
-      </AnimatePresence>
-    </>
+    </AnimatePresence>
   );
 }
