@@ -6,7 +6,7 @@ import {
   useTransform,
   AnimatePresence
 } from "framer-motion";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 
 export type DockItemData = {
   icon: React.ReactNode;
@@ -113,7 +113,7 @@ export default function Dock({ items }: DockProps) {
           px-6 pb-3 pt-2
           rounded-[28px]
           backdrop-blur-2xl
-          bg-gradient-to-b from-white/20 to-white/5
+          bg-linear-to-b from-white/20 to-white/5
           shadow-[0_20px_40px_rgba(0,0,0,0.35)]
         "
       >

@@ -4,7 +4,7 @@ import WindowManager from "../window/WindowManager";
 import { useWindowStore } from "../../store/windowStore";
 import Dock from "./Dock";
 import imageIc from "/icons/folderIcon.png";
-import { VscHome, VscArchive, VscAccount } from "react-icons/vsc";
+import { VscArchive, VscAccount } from "react-icons/vsc";
 import TextPressure from "../ui/TextPressure";
 import MenuBar from "./MenuBar";
 
