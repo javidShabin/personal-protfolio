@@ -6,6 +6,7 @@ import Dock from "./Dock";
 import imageIc from "/icons/folderIcon.png";
 import { VscHome, VscArchive, VscAccount } from "react-icons/vsc";
 import TextPressure from "../ui/TextPressure";
+import MenuBar from "./MenuBar";
 
 export default function Desktop() {
   const openWindow = useWindowStore((state) => state.openWindow);
@@ -29,50 +30,65 @@ export default function Desktop() {
   ];
 
   return (
-    <div
-      className="w-screen h-screen bg-cover bg-center relative overflow-hidden"
-      style={{ backgroundImage: `url(${wallpaper})` }}
-    >
-      
-      {/* Center Intro */}
+    <>
+      <MenuBar />
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        className="w-screen h-screen bg-cover bg-center relative overflow-hidden"
+        style={{ backgroundImage: `url(${wallpaper})` }}
       >
-        <h1 className="text-white text-4xl font-light text-center mb-2">Hello I am Javid! Welcom to my</h1>
-        <div style={{ width: "600px", height: "160px" }}>
-          <TextPressure
-            text="Portfolio"
-            flex
-            width
-            weight
-            italic
-            textColor="#ffffff"
-            minFontSize={24}
+        {/* Center Intro */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h1 className="text-white text-4xl font-light text-center mb-2">
+            Hello I am Javid! Welcom to my
+          </h1>
+          <div style={{ width: "600px", height: "160px" }}>
+            <TextPressure
+              text="Portfolio"
+              flex
+              width
+              weight
+              italic
+              textColor="#ffffff"
+              minFontSize={24}
+            />
+          </div>
+        </div>
+
+        {/* Desktop Icons */}
+        <div className="absolute top-16 left-6 flex flex-col gap-6 z-10">
+          <DesktopIcon
+            title="About Me"
+            icon="/icons/folderIcon.png"
+            onOpen={() => openWindow({ id: "about", title: "About Me" })}
+          />
+
+          <DesktopIcon
+            title="Projects"
+            icon="/icons/folderIcon.png"
+            onOpen={() => openWindow({ id: "projects", title: "Projects" })}
+          />
+
+          <DesktopIcon
+            title="Skills"
+            icon="/icons/folderIcon.png"
+            onOpen={() => openWindow({ id: "skills", title: "Skills" })}
           />
         </div>
-        
-      </div>
-      
-      {/* Desktop Icons */}
-      <div className="p-6 flex gap-6 relative z-10">
-        <DesktopIcon
-          title="About Me"
-          icon="/icons/folderIcon.png"
-          onOpen={() => openWindow({ id: "about", title: "About Me" })}
-        />
-      </div>
 
-      <WindowManager />
+        <WindowManager />
 
-      {/* Dock */}
-      <Dock items={items} />
-    </div>
+        {/* Dock */}
+        <Dock items={items} />
+      </div>
+    </>
   );
 }
