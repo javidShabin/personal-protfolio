@@ -24,9 +24,9 @@ const SPRING = {
   damping: 25
 };
 
-const BASE_SIZE = 56;
-const MAGNIFICATION = 90;
-const DISTANCE = 140;
+const BASE_SIZE = 54;
+const MAGNIFICATION = 88;
+const DISTANCE = 120;
 
 function DockItem({
   item,
@@ -61,7 +61,7 @@ function DockItem({
       onHoverEnd={() => setShowLabel(false)}
       onClick={item.onClick}
       className="
-        relative w-14 h-14
+        relative w-[54px] h-[54px]
         flex items-center justify-center
         cursor-pointer
         transform-gpu will-change-transform
@@ -71,7 +71,7 @@ function DockItem({
         <img
           src={item.icon}
           alt=""
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain drop-shadow-[0_5px_8px_rgba(0,0,0,0.3)]"
         />
       ) : (
         item.icon
@@ -88,8 +88,8 @@ function DockItem({
               absolute -top-8 left-1/2 -translate-x-1/2
               whitespace-nowrap
               px-3 py-1 text-xs text-white
-              rounded-lg
-              bg-white/20 backdrop-blur-md
+              rounded-md
+              bg-black/55 backdrop-blur-md
             "
           >
             {item.label}
@@ -104,17 +104,18 @@ export default function Dock({ items }: DockProps) {
   const mouseX = useMotionValue(Infinity);
 
   return (
-    <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
+    <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
       <div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         className="
-          flex items-end gap-6
-          px-6 pb-3 pt-2
-          rounded-[28px]
+          flex items-end gap-3
+          px-4 pb-2.5 pt-2
+          rounded-[20px]
           backdrop-blur-2xl
-          bg-linear-to-b from-white/20 to-white/5
-          shadow-[0_20px_40px_rgba(0,0,0,0.35)]
+          border border-white/20
+          bg-linear-to-b from-[#2a63ff]/75 to-[#193fc4]/80
+          shadow-[0_20px_34px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.35)]
         "
       >
         {items.map((item, index) => (

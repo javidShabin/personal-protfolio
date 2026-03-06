@@ -1,0 +1,27 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="28" fill="url(#bg)"/>
+  <circle cx="962" cy="143" r="110" fill="#FDE68A" fill-opacity="0.26"/>
+  <circle cx="1045" cy="560" r="146" fill="#FDBA74" fill-opacity="0.22"/>
+  <rect x="120" y="96" width="396" height="483" rx="42" fill="#0F172A" fill-opacity="0.84" stroke="#F8FAFC" stroke-opacity="0.25" stroke-width="4"/>
+  <rect x="149" y="142" width="338" height="320" rx="24" fill="#F97316" fill-opacity="0.2"/>
+  <path d="M310 184C270 184 238 216 238 256C238 328 310 391 310 391C310 391 382 328 382 256C382 216 350 184 310 184ZM310 292C290 292 274 276 274 256C274 236 290 220 310 220C330 220 346 236 346 256C346 276 330 292 310 292Z" fill="#FB923C"/>
+  <rect x="173" y="484" width="290" height="62" rx="16" fill="#22C55E"/>
+  <text x="318" y="524" fill="#052E16" font-family="Arial, sans-serif" font-size="30" font-weight="700" text-anchor="middle">Place Order</text>
+  <rect x="584" y="122" width="496" height="430" rx="28" fill="#0F172A" fill-opacity="0.52" stroke="#FFE4C7" stroke-opacity="0.25" stroke-width="3"/>
+  <text x="634" y="184" fill="#FFF7ED" font-family="Arial, sans-serif" font-size="56" font-weight="700">Delivist</text>
+  <text x="634" y="236" fill="#FED7AA" font-family="Arial, sans-serif" font-size="30" font-weight="500">Food ordering website</text>
+  <rect x="634" y="286" width="183" height="178" rx="22" fill="#EA580C" fill-opacity="0.34"/>
+  <rect x="843" y="286" width="183" height="178" rx="22" fill="#FB923C" fill-opacity="0.32"/>
+  <path d="M698 370H756" stroke="#FFF7ED" stroke-width="12" stroke-linecap="round"/>
+  <path d="M688 338H767" stroke="#FFF7ED" stroke-width="12" stroke-linecap="round"/>
+  <path d="M688 402H767" stroke="#FFF7ED" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="898" cy="347" r="35" fill="#FFF7ED"/>
+  <circle cx="976" cy="347" r="35" fill="#FFF7ED"/>
+  <rect x="873" y="386" width="126" height="38" rx="19" fill="#FFF7ED"/>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="40" x2="1110" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C2410C"/>
+      <stop offset="1" stop-color="#7C2D12"/>
+    </linearGradient>
+  </defs>
+</svg>

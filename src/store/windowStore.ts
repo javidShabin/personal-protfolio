@@ -5,7 +5,7 @@ export interface AppWindow {
   title: string;
   zIndex: number;
   isMinimized?: boolean;
-  isMaximized?: boolean; 
+  isMaximized?: boolean;
 }
 
 interface WindowStore {
@@ -15,7 +15,6 @@ interface WindowStore {
   focusWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
   toggleMaximize: (id: string) => void;
-  
 }
 
 export const useWindowStore = create<WindowStore>((set) => ({
@@ -24,25 +23,18 @@ export const useWindowStore = create<WindowStore>((set) => ({
   openWindow: (window) =>
     set((state) => {
       const exists = state.windows.find((w) => w.id === window.id);
+      const topZ = Math.max(0, ...state.windows.map((w) => w.zIndex)) + 1;
 
-      // If already exists → restore if minimized
       if (exists) {
         return {
           windows: state.windows.map((w) =>
-            w.id === window.id
-              ? { ...w, isMinimized: false }
-              : w
+            w.id === window.id ? { ...w, isMinimized: false, zIndex: topZ } : w,
           ),
         };
       }
 
-      const topZ = state.windows.length + 1;
-
       return {
-        windows: [
-          ...state.windows,
-          { ...window, zIndex: topZ, isMinimized: false },
-        ],
+        windows: [...state.windows, { ...window, zIndex: topZ, isMinimized: false }],
       };
     }),
 
@@ -53,32 +45,22 @@ export const useWindowStore = create<WindowStore>((set) => ({
 
   focusWindow: (id) =>
     set((state) => {
-      const topZ =
-        Math.max(0, ...state.windows.map((w) => w.zIndex)) + 1;
+      const topZ = Math.max(0, ...state.windows.map((w) => w.zIndex)) + 1;
 
       return {
-        windows: state.windows.map((w) =>
-          w.id === id ? { ...w, zIndex: topZ } : w
-        ),
+        windows: state.windows.map((w) => (w.id === id ? { ...w, zIndex: topZ } : w)),
       };
     }),
 
   minimizeWindow: (id) =>
     set((state) => ({
-      windows: state.windows.map((w) =>
-        w.id === id ? { ...w, isMinimized: true } : w
-      ),
+      windows: state.windows.map((w) => (w.id === id ? { ...w, isMinimized: true } : w)),
     })),
 
-    toggleMaximize: (id) =>
-  set((state) => ({
-    windows: state.windows.map((w) =>
-      w.id === id
-        ? { ...w, isMaximized: !w.isMaximized }
-        : w
-    ),
-  })),
-
-
-    
+  toggleMaximize: (id) =>
+    set((state) => ({
+      windows: state.windows.map((w) =>
+        w.id === id ? { ...w, isMaximized: !w.isMaximized } : w,
+      ),
+    })),
 }));

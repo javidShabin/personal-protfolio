@@ -3,8 +3,12 @@ import DesktopIcon from "./DesktopIcon";
 import WindowManager from "../window/WindowManager";
 import { useWindowStore } from "../../store/windowStore";
 import Dock from "./Dock";
-import imageIc from "/icons/folderIcon.png";
-import { VscArchive, VscAccount } from "react-icons/vsc";
+import finderIcon from "/icons/finder.png";
+import safariIcon from "/icons/safari.png";
+import photosIcon from "/icons/photos.png";
+import contactsIcon from "/icons/contact.png";
+import terminalIcon from "/icons/terminal.png";
+import trashIcon from "/icons/trash.png";
 import TextPressure from "../ui/TextPressure";
 import MenuBar from "./MenuBar";
 
@@ -13,19 +17,34 @@ export default function Desktop() {
 
   const items = [
     {
-      icon: imageIc,
-      label: "About",
-      onClick: () => openWindow({ id: "about", title: "About Me" }),
+      icon: finderIcon,
+      label: "Finder",
+      onClick: () => openWindow({ id: "files", title: "Files" }),
     },
     {
-      icon: <VscArchive size={18} />,
-      label: "Projects",
+      icon: safariIcon,
+      label: "Safari",
       onClick: () => openWindow({ id: "projects", title: "Projects" }),
     },
     {
-      icon: <VscAccount size={18} />,
-      label: "Skills",
+      icon: photosIcon,
+      label: "Photos",
       onClick: () => openWindow({ id: "skills", title: "Skills" }),
+    },
+    {
+      icon: contactsIcon,
+      label: "Contacts",
+      onClick: () => openWindow({ id: "contact", title: "Contact Me" }),
+    },
+    {
+      icon: terminalIcon,
+      label: "Terminal",
+      onClick: () => openWindow({ id: "resume", title: "Resume" }),
+    },
+    {
+      icon: trashIcon,
+      label: "Trash",
+      onClick: () => {},
     },
   ];
 

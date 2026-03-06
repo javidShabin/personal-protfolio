@@ -5,9 +5,11 @@ import {
 } from "react-icons/vsc";
 import { FiWifi } from "react-icons/fi";
 import { FaApple } from "react-icons/fa";
+import { useWindowStore } from "../../store/windowStore";
 
 export default function MenuBar() {
   const [time, setTime] = useState("");
+  const openWindow = useWindowStore((state) => state.openWindow);
 
   useEffect(() => {
     const updateTime = () => {
@@ -47,11 +49,17 @@ export default function MenuBar() {
           Projects
         </span>
 
-        <span className="cursor-pointer hover:text-gray-300">
+        <span
+          className="cursor-pointer hover:text-gray-300"
+          onClick={() => openWindow({ id: "contact", title: "Contact Me" })}
+        >
           Contact
         </span>
 
-        <span className="cursor-pointer hover:text-gray-300">
+        <span
+          className="cursor-pointer hover:text-gray-300"
+          onClick={() => openWindow({ id: "resume", title: "Resume" })}
+        >
           Resume
         </span>
       </div>
