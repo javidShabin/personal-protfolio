@@ -44,6 +44,8 @@ export default function Window({ id, title, zIndex, children }: Props) {
   const windows = useWindowStore((state) => state.windows);
   const currentWindow = windows.find((w) => w.id === id);
   const isMaximized = Boolean(currentWindow?.isMaximized);
+  const isTerminalWindow = id === "terminal";
+  const effectiveZIndex = isMaximized ? zIndex + 100 : zIndex;
 
   const openWindow = useWindowStore((state) => state.openWindow);
   const closeWindow = useWindowStore((state) => state.closeWindow);
@@ -53,7 +55,7 @@ export default function Window({ id, title, zIndex, children }: Props) {
 
   return (
     <Rnd
-      style={{ zIndex }}
+      style={{ zIndex: effectiveZIndex }}
       size={
         currentWindow?.isMaximized
           ? { width: "100%", height: "100%" }
@@ -77,7 +79,7 @@ export default function Window({ id, title, zIndex, children }: Props) {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8, y: 40 }}
         transition={{ duration: 0.25, ease: "easeInOut" }}
-        className={`relative h-full flex flex-col overflow-hidden border text-white backdrop-blur-xl ${
+        className={`app-window relative h-full flex flex-col overflow-hidden border text-white backdrop-blur-xl ${
           isMaximized
             ? "rounded-none border-zinc-700/60"
             : "rounded-[12px] border-zinc-600/65"
@@ -125,56 +127,66 @@ export default function Window({ id, title, zIndex, children }: Props) {
             {title}
           </span>
 
-          <div className="flex w-[58px] justify-end">
-            <Search size={18} className="text-zinc-400" />
-          </div>
+          {isTerminalWindow ? (
+            <div className="w-[58px]" />
+          ) : (
+            <div className="flex w-[58px] justify-end">
+              <Search size={18} className="text-zinc-400" />
+            </div>
+          )}
         </div>
 
-        <div className="relative z-10 flex min-h-0 flex-1 bg-zinc-900/92">
-          <aside className="w-[210px] shrink-0 border-r border-zinc-700/80 bg-zinc-800/60 px-3 py-4">
-            <p className="mb-2 px-2 text-sm font-semibold text-zinc-500">Favorites</p>
-            <div className="space-y-1">
-              {favorites.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => openWindow({ id: item.id, title: item.title })}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm font-semibold transition ${
-                    item.id === id
-                      ? "bg-white/14 text-zinc-100"
-                      : "text-zinc-200 hover:bg-white/8"
-                  }`}
-                >
-                  <item.icon size={17} className="text-sky-400" />
-                  <span className="truncate">{item.label}</span>
-                </button>
-              ))}
-            </div>
-
-            <p className="mb-2 mt-6 px-2 text-sm font-semibold text-zinc-500">Work</p>
-            <div className="space-y-1">
-              {workspace.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => openWindow({ id: item.id, title: item.title })}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm font-semibold transition ${
-                    item.id === id
-                      ? "bg-white/14 text-zinc-100"
-                      : "text-zinc-200 hover:bg-white/8"
-                  }`}
-                >
-                  <item.icon size={17} className="text-sky-400" />
-                  <span className="truncate">{item.label}</span>
-                </button>
-              ))}
-            </div>
-          </aside>
-
-          <div className="min-h-0 min-w-0 flex-1 overflow-auto bg-zinc-900/72 p-4">
+        {isTerminalWindow ? (
+          <div className="relative z-10 min-h-0 flex-1 bg-zinc-900/92">
             {children}
           </div>
-        </div>
+        ) : (
+          <div className="relative z-10 flex min-h-0 flex-1 bg-zinc-900/92">
+            <aside className="w-[210px] shrink-0 border-r border-zinc-700/80 bg-zinc-800/60 px-3 py-4">
+              <p className="mb-2 px-2 text-sm font-semibold text-zinc-500">Favorites</p>
+              <div className="space-y-1">
+                {favorites.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => openWindow({ id: item.id, title: item.title })}
+                    className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm font-semibold transition ${
+                      item.id === id
+                        ? "bg-white/14 text-zinc-100"
+                        : "text-zinc-200 hover:bg-white/8"
+                    }`}
+                  >
+                    <item.icon size={17} className="text-sky-400" />
+                    <span className="truncate">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              <p className="mb-2 mt-6 px-2 text-sm font-semibold text-zinc-500">Work</p>
+              <div className="space-y-1">
+                {workspace.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => openWindow({ id: item.id, title: item.title })}
+                    className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm font-semibold transition ${
+                      item.id === id
+                        ? "bg-white/14 text-zinc-100"
+                        : "text-zinc-200 hover:bg-white/8"
+                    }`}
+                  >
+                    <item.icon size={17} className="text-sky-400" />
+                    <span className="truncate">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            </aside>
+
+            <div className="min-h-0 min-w-0 flex-1 overflow-auto bg-zinc-900/72 p-4">
+              {children}
+            </div>
+          </div>
+        )}
       </motion.div>
     </Rnd>
   );

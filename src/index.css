@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+.app-window * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(209, 213, 219, 0.42) rgba(24, 24, 27, 0.28);
+}
+
+.app-window *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.app-window *::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, rgba(24, 24, 27, 0.34), rgba(24, 24, 27, 0.2));
+  border-radius: 9999px;
+}
+
+.app-window *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(228, 228, 231, 0.52), rgba(161, 161, 170, 0.52));
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  background-clip: padding-box;
+}
+
+.app-window *::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(244, 244, 245, 0.68), rgba(212, 212, 216, 0.68));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}

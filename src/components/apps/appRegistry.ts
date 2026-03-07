@@ -2,10 +2,12 @@ import { createElement } from "react";
 import AboutApp from "./AboutApp";
 import ContactApp from "./ContactApp";
 import FilesApp from "./FilesApp";
+import PhotosApp from "./PhotosApp";
 import ProjectDetailApp from "./ProjectDetailApp";
 import ProjectsApp from "./ProjectsApp";
 import ResumeApp from "./ResumeApp";
 import SkillsApp from "./SkillsApp";
+import TerminalApp from "./TerminalApp";
 import { portfolioProjects } from "./projectsData";
 
 const projectWindows = Object.fromEntries(
@@ -19,8 +21,10 @@ export const appRegistry: Record<string, React.FC> = {
   files: FilesApp,
   about: AboutApp,
   contact: ContactApp,
+  photos: PhotosApp,
   projects: ProjectsApp,
   resume: ResumeApp,
   skills: SkillsApp,
+  terminal: TerminalApp,
   ...projectWindows,
 };

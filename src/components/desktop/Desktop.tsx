@@ -29,7 +29,7 @@ export default function Desktop() {
     {
       icon: photosIcon,
       label: "Photos",
-      onClick: () => openWindow({ id: "skills", title: "Skills" }),
+      onClick: () => openWindow({ id: "photos", title: "Photos" }),
     },
     {
       icon: contactsIcon,
@@ -39,7 +39,7 @@ export default function Desktop() {
     {
       icon: terminalIcon,
       label: "Terminal",
-      onClick: () => openWindow({ id: "resume", title: "Resume" }),
+      onClick: () => openWindow({ id: "terminal", title: "Terminal" }),
     },
     {
       icon: trashIcon,
@@ -83,7 +83,7 @@ export default function Desktop() {
         </div>
 
         {/* Desktop Icons */}
-        <div className="absolute top-16 left-6 flex flex-col gap-6 z-10">
+        <div className="absolute top-16 left-6 flex flex-col gap-6 z-0">
           <DesktopIcon
             title="About Me"
             icon="/icons/folderIcon.png"
